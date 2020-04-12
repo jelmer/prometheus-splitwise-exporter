@@ -21,6 +21,9 @@ parser = argparse.ArgumentParser('prometheus-splitwise-exporter')
 parser.add_argument(
     '--prometheus', type=str, help='Prometheus host to connect to.',
     default=None)
+parser.add_argument(
+    '--splitwise-credentials', type=str, default='config.json',
+    help='Path to splitwise credentials.')
 args = parser.parse_args()
 
 registry = CollectorRegistry()
@@ -43,15 +46,15 @@ gbp_balance_gauge = Gauge(
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
-with open('config.json') as f:
+with open(args.splitwise_credentials) as f:
     config = json.load(f)
 
 sw = splitwise.Splitwise(
-    config['Splitwise']['OAuthConfig']['ConsumerKey'],
-    config['Splitwise']['OAuthConfig']['ConsumerSecret'])
+    config['OAuthConfig']['ConsumerKey'],
+    config['OAuthConfig']['ConsumerSecret'])
 sw.setAccessToken(
-    {"oauth_token": config['Splitwise']['Token']['Token'],
-     "oauth_token_secret": config['Splitwise']['Token']['TokenSecret']})
+    {"oauth_token": config['Token']['Token'],
+     "oauth_token_secret": config['Token']['TokenSecret']})
 
 
 response = requests.get('https://api.exchangerate-api.com/v4/latest/GBP')
