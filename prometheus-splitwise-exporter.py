@@ -15,6 +15,7 @@ from prometheus_client import (
     CollectorRegistry,
     Gauge,
     push_to_gateway,
+    generate_latest,
     )
 
 parser = argparse.ArgumentParser('prometheus-splitwise-exporter')
@@ -81,3 +82,5 @@ last_success_gauge.set_to_current_time()
 if args.prometheus:
     push_to_gateway(args.prometheus, job='prometheus-splitwise-exporter',
                     registry=registry)
+else:
+    sys.stdout.buffer.write(generate_latest(registry=registry))
