@@ -4,7 +4,7 @@ from distutils.core import setup
 
 setup(
     name='prometheus-splitwise-exporter',
-    version='0.5',
+    version='0.6',
     maintainer='Jelmer Vernooij',
     maintainer_email='jelmer@jelmer.uk',
     scripts=['prometheus-splitwise-exporter.py'],
