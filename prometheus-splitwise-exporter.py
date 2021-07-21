@@ -15,6 +15,7 @@ from prometheus_client import (
     CollectorRegistry,
     Gauge,
     push_to_gateway,
+    generate_latest,
     )
 
 parser = argparse.ArgumentParser('prometheus-splitwise-exporter')
@@ -22,7 +23,8 @@ parser.add_argument(
     '--prometheus', type=str, help='Prometheus host to connect to.',
     default=None)
 parser.add_argument(
-    '--config', type=str, default='config.json')
+    '--config', type=str, default='config.json',
+    help='Path to splitwise credentials.')
 args = parser.parse_args()
 
 registry = CollectorRegistry()
@@ -45,15 +47,19 @@ gbp_balance_gauge = Gauge(
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
+<<<<<<< HEAD
 with open(args.config) as f:
+=======
+with open(args.splitwise_credentials) as f:
+>>>>>>> 86e33bc919b63a6ec3dec6073d50e18abb7a4c88
     config = json.load(f)
 
 sw = splitwise.Splitwise(
-    config['Splitwise']['OAuthConfig']['ConsumerKey'],
-    config['Splitwise']['OAuthConfig']['ConsumerSecret'])
+    config['OAuthConfig']['ConsumerKey'],
+    config['OAuthConfig']['ConsumerSecret'])
 sw.setAccessToken(
-    {"oauth_token": config['Splitwise']['Token']['Token'],
-     "oauth_token_secret": config['Splitwise']['Token']['TokenSecret']})
+    {"oauth_token": config['Token']['Token'],
+     "oauth_token_secret": config['Token']['TokenSecret']})
 
 
 response = requests.get('https://api.exchangerate-api.com/v4/latest/GBP')
@@ -80,3 +86,5 @@ last_success_gauge.set_to_current_time()
 if args.prometheus:
     push_to_gateway(args.prometheus, job='prometheus-splitwise-exporter',
                     registry=registry)
+else:
+    sys.stdout.buffer.write(generate_latest(registry=registry))
