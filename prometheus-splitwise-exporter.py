@@ -47,11 +47,7 @@ gbp_balance_gauge = Gauge(
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
-<<<<<<< HEAD
 with open(args.config) as f:
-=======
-with open(args.splitwise_credentials) as f:
->>>>>>> 86e33bc919b63a6ec3dec6073d50e18abb7a4c88
     config = json.load(f)
 
 sw = splitwise.Splitwise(
