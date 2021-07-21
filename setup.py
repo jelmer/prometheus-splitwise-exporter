@@ -10,5 +10,5 @@ setup(
     scripts=['prometheus-splitwise-exporter.py'],
     url='https://github.com/jelmer/prometheus-splitwise-exporter',
     license='Apachev2',
-    install_requires=['splitwise'],
+    requires=['splitwise', 'prometheus-client'],
 )

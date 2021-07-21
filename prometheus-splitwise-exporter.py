@@ -21,6 +21,8 @@ parser = argparse.ArgumentParser('prometheus-splitwise-exporter')
 parser.add_argument(
     '--prometheus', type=str, help='Prometheus host to connect to.',
     default=None)
+parser.add_argument(
+    '--config', type=str, default='config.json')
 args = parser.parse_args()
 
 registry = CollectorRegistry()
@@ -43,7 +45,7 @@ gbp_balance_gauge = Gauge(
 logging.basicConfig(stream=sys.stdout, level=logging.INFO)
 
 
-with open('config.json') as f:
+with open(args.config) as f:
     config = json.load(f)
 
 sw = splitwise.Splitwise(
