@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from distutils.core import setup
+from setuptools import setup
 
 setup(
     name='prometheus-splitwise-exporter',
@@ -10,5 +10,5 @@ setup(
     scripts=['prometheus-splitwise-exporter.py'],
     url='https://github.com/jelmer/prometheus-splitwise-exporter',
     license='Apachev2',
-    requires=['splitwise', 'prometheus-client'],
+    install_requires=['splitwise', 'prometheus-client'],
 )
