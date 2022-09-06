@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='prometheus-splitwise-exporter',
-    version='0.9',
+    version='0.10',
     maintainer='Jelmer Vernooij',
     maintainer_email='jelmer@jelmer.uk',
     scripts=['prometheus-splitwise-exporter.py'],
