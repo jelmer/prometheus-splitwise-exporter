@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "prometheus-splitwise-exporter"
+version = "0.12"
+maintainers = [{name = "Jelmer Vernooij", email = "jelmer@jelmer.uk"}]
+license = {text = "Apachev2"}
+dependencies = [
+    "splitwise",
+    "prometheus-client",
+]
+
+[project.urls]
+Homepage = "https://github.com/jelmer/prometheus-splitwise-exporter"
+Repository = "https://github.com/jelmer/prometheus-splitwise-exporter"
+
+[tool.setuptools]
+script-files = ["prometheus-splitwise-exporter.py"]
+include-package-data = false
